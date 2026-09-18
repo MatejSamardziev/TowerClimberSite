@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TowerClimber | All Star Studios</title>
+<meta name="description" content="Place the blocks. Build the path. Stay ahead of the rising water. TowerClimber is a vertical climbing puzzle game for Android and iOS.">
+<link rel="icon" href="icon.png">
+<meta property="og:title" content="TowerClimber">
+<meta property="og:description" content="Place the blocks. Build the path. Stay ahead of the rising water.">
+<meta property="og:image" content="background.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night:      #0a1526;
+    --night-2:    #0e1c31;
+    --panel:      #152742;
+    --panel-2:    #1b3152;
+    --line:       #24405f;
+    --text:       #eef5ff;
+    --dim:        #a9bdd9;
+    --mute:       #7089a8;
+    --sky:        #5bb8f5;
+    --gold:       #ffc24b;
+    --green:      #67d94a;
+    --coral:      #ff6b5e;
+    --radius:     18px;
+    --maxw:       1080px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--text);
+    font: 16px/1.65 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: Fredoka, Inter, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  a { color: var(--sky); text-decoration: none; }
+  a:hover { color: #9ad5ff; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- HERO ---------- */
+
+  .hero { position: relative; isolation: isolate; }
+
+  /* Phones: a tall crop, framed on the characters in the middle of the art. */
+  .hero-media {
+    position: relative;
+    width: 100%;
+    height: 58vh;
+    min-height: 360px;
+    overflow: hidden;
+  }
+
+  .hero-media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 62% 46%;
+    display: block;
+  }
+
+  /* Desktop: match the artwork's own proportions so nobody gets cropped out.
+     Capped at 1600px wide, because stretching further across an ultrawide
+     monitor forces a vertical crop that cuts the yeti off at the top. */
+  @media (min-width: 900px) {
+    .hero-media {
+      height: auto;
+      aspect-ratio: 1672 / 941;
+      max-height: 86vh;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .hero-media img { object-position: center 42%; }
+    /* Melts the left and right edges away so the capped width does not read
+       as a floating box on a wide screen. */
+    .hero-media::before {
+      content: "";
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right,
+        var(--night) 0%, rgba(10,21,38,0) 7%,
+        rgba(10,21,38,0) 93%, var(--night) 100%);
+      pointer-events: none;
+    }
+  }
+
+  /* The blend: the art dissolves into the page instead of stopping at an edge. */
+  .hero-media::after {
+    content: "";
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(to bottom,
+        rgba(10,21,38,0.28) 0%,
+        rgba(10,21,38,0.00) 20%,
+        rgba(10,21,38,0.00) 42%,
+        rgba(10,21,38,0.55) 70%,
+        rgba(10,21,38,0.93) 89%,
+        var(--night) 100%),
+      radial-gradient(130% 85% at 50% 28%, rgba(10,21,38,0) 42%, rgba(10,21,38,0.5) 100%);
+    pointer-events: none;
+  }
+
+  .hero-body {
+    position: relative;
+    margin-top: clamp(-200px, -21vh, -120px);
+    padding-bottom: 24px;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 14px;
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+  }
+
+  .hero-body h1 {
+    font-size: clamp(50px, 10vw, 104px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-shadow: 0 6px 30px rgba(0,0,0,0.55);
+  }
+  .hero-body h1 span { color: var(--gold); }
+
+  .lede {
+    font-size: clamp(17px, 2.3vw, 21px);
+    color: var(--dim);
+    max-width: 34ch;
+    margin: 18px 0 0;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.5);
+  }
+
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .tag {
+    font-size: 13px; font-weight: 500;
+    padding: 7px 15px; border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.13);
+    color: var(--dim);
+    backdrop-filter: blur(6px);
+  }
+
+  /* ---------- SECTIONS ---------- */
+
+  section { padding: 80px 0; }
+  .section-head { margin-bottom: 36px; }
+  .section-head h2 { font-size: clamp(28px, 4.5vw, 40px); }
+  .section-head p { color: var(--mute); margin: 12px 0 0; max-width: 54ch; }
+
+  .kicker {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--sky); margin: 0 0 10px;
+  }
+
+  /* ---------- DOWNLOAD / QR ---------- */
+
+  #get {
+    background:
+      radial-gradient(90% 120% at 50% 0%, rgba(91,184,245,0.10) 0%, rgba(91,184,245,0) 60%),
+      var(--night-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 20px;
+  }
+
+  .store-card {
+    position: relative;
+    background: linear-gradient(170deg, var(--panel-2), var(--panel));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 24px 24px;
+    text-align: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+    transition: transform .22s ease, border-color .22s ease;
+  }
+  .store-card:hover { transform: translateY(-4px); border-color: #35608c; }
+
+  .store-head {
+    display: flex; align-items: center; justify-content: center; gap: 11px;
+    margin-bottom: 4px;
+  }
+  .store-head svg { width: 26px; height: 26px; flex: none; }
+  .store-name { font-family: Fredoka, sans-serif; font-size: 20px; font-weight: 600; }
+  .store-sub { color: var(--mute); font-size: 13px; margin: 0 0 20px; }
+
+  .qr {
+    width: 176px; height: 176px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px;
+    display: grid; place-items: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  }
+  .qr canvas, .qr img { display: block; width: 100% !important; height: 100% !important; }
+  .qr-fallback { color: #6b7a8d; font-size: 12px; text-align: center; padding: 10px; line-height: 1.4; }
+
+  .badge {
+    position: absolute; top: 14px; right: 14px;
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+    background: rgba(255,194,75,0.14);
+    border: 1px solid rgba(255,194,75,0.35);
+    color: var(--gold);
+  }
+
+  .qr-note { margin-top: 18px; font-size: 13px; color: var(--mute); }
+
+  /* ---------- FEATURES ---------- */
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+  .feature {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+  }
+  .feature .ico {
+    width: 46px; height: 46px; border-radius: 13px;
+    display: grid; place-items: center;
+    margin-bottom: 18px;
+  }
+  .feature .ico svg { width: 24px; height: 24px; }
+  .ico.a { background: rgba(103,217,74,0.13); border: 1px solid rgba(103,217,74,0.30); }
+  .ico.b { background: rgba(91,184,245,0.13); border: 1px solid rgba(91,184,245,0.30); }
+  .ico.c { background: rgba(255,194,75,0.13); border: 1px solid rgba(255,194,75,0.30); }
+  .feature h3 { font-size: 19px; margin-bottom: 9px; }
+  .feature p { color: var(--dim); margin: 0; font-size: 15px; }
+
+  /* ---------- PANELS ---------- */
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px;
+  }
+  .panel.warn { border-left: 3px solid var(--coral); }
+  .panel p { margin: 0 0 14px; color: var(--dim); }
+  .panel p:last-child { margin-bottom: 0; }
+  .panel .big { font-size: 18px; color: var(--text); font-weight: 500; }
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    border-top: 1px solid var(--line);
+    background: #07101d;
+    padding: 52px 0 40px;
+  }
+  .foot-grid {
+    display: flex; flex-wrap: wrap; gap: 32px;
+    justify-content: space-between; align-items: flex-start;
+  }
+  .foot-brand { display: flex; align-items: center; gap: 13px; }
+  .foot-brand img { width: 42px; height: 42px; border-radius: 11px; }
+  .foot-brand .n { font-family: Fredoka, sans-serif; font-size: 18px; font-weight: 600; }
+  .foot-brand .s { color: var(--mute); font-size: 13px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 14px 28px; }
+  .foot-links a { color: var(--dim); font-size: 14.5px; }
+  .foot-links a:hover { color: var(--sky); }
+  .foot-bottom {
+    margin-top: 36px; padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    color: var(--mute); font-size: 13px;
+    display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: space-between;
+  }
+
+  @media (max-width: 620px) {
+    .hero-body { margin-top: -140px; }
+    section { padding: 62px 0; }
+    .panel { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<header class="hero">
+  <div class="hero-media">
+    <img src="background.jpg" alt="Four TowerClimber characters scaling a stone tower above the clouds">
+  </div>
+  <div class="wrap hero-body">
+    <p class="eyebrow">All Star Studios</p>
+    <h1>Tower<span>Climber</span></h1>
+    <p class="lede">Place the blocks. Build the path. Stay ahead of the rising water.</p>
+    <div class="hero-tags">
+      <span class="tag">Puzzle</span>
+      <span class="tag">Endless climb</span>
+      <span class="tag">Play offline</span>
+      <span class="tag">Characters to collect</span>
+    </div>
+  </div>
+</header>
+
+<!-- ========== GET THE GAME ========== -->
+<section id="get">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Get the game</p>
+      <h2>Scan and climb</h2>
+      <p>Point your phone's camera at the code for your platform.</p>
+    </div>
+
+    <div class="stores">
+
+      <div class="store-card">
+        <span class="badge">Coming soon</span>
+        <div class="store-head">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#ffffff" d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+          </svg>
+          <span class="store-name">App Store</span>
+        </div>
+        <p class="store-sub">iPhone and iPad</p>
+        <div class="qr" id="qr-ios"><span class="qr-fallback">QR code</span></div>
+      </div>
+
+      <div class="store-card">
+        <span class="badge">Coming soon</span>
+        <div class="store-head">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#00a0ff" d="M3.3 1.9 13.4 12 3.3 22.1A1.6 1.6 0 0 1 2.8 21V3a1.6 1.6 0 0 1 .5-1.1z"/>
+            <path fill="#00f076" d="M3.3 1.9 17.2 7.7 13.4 12z"/>
+            <path fill="#ff3a44" d="M13.4 12 17.2 16.3 3.3 22.1z"/>
+            <path fill="#ffce00" d="M17.2 7.7 21.1 10.6a1.6 1.6 0 0 1 0 2.8l-3.9 2.9L13.4 12z"/>
+          </svg>
+          <span class="store-name">Google Play</span>
+        </div>
+        <p class="store-sub">Android</p>
+        <div class="qr" id="qr-android"><span class="qr-fallback">QR code</span></div>
+      </div>
+
+    </div>
+
+    <p class="qr-note">These codes are placeholders while the game is in testing. They will point at the real store pages at launch.</p>
+  </div>
+</section>
+
+<!-- ========== THE GAME ========== -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">How it plays</p>
+      <h2>You build the tower.<br>The climber does the climbing.</h2>
+      <p>You never move the character directly. You decide where the next block goes, and the climber takes whatever path you just made possible.</p>
+    </div>
+
+    <div class="features">
+
+      <div class="feature">
+        <div class="ico a">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#67d94a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="14.5" width="7" height="6" rx="1.2"/>
+            <rect x="11" y="14.5" width="7" height="6" rx="1.2"/>
+            <rect x="7" y="8" width="7" height="6" rx="1.2"/>
+            <rect x="11" y="1.5" width="7" height="6" rx="1.2"/>
+          </svg>
+        </div>
+        <h3>Place, don't steer</h3>
+        <p>Drag a piece onto the grid. Every valid placement sends the climber as high as your structure allows.</p>
+      </div>
+
+      <div class="feature">
+        <div class="ico b">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5bb8f5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 16.5c2.2 0 2.2-2.2 4.4-2.2s2.2 2.2 4.4 2.2 2.2-2.2 4.4-2.2 2.2 2.2 4.4 2.2"/>
+            <path d="M2 21c2.2 0 2.2-2.2 4.4-2.2s2.2 2.2 4.4 2.2 2.2-2.2 4.4-2.2 2.2 2.2 4.4 2.2"/>
+            <path d="M12 10.5V3"/>
+            <path d="m8.5 6.5 3.5-3.5 3.5 3.5"/>
+          </svg>
+        </div>
+        <h3>The water never stops</h3>
+        <p>Build too slowly and it catches you. Build carelessly and you wall your own climber in. Both lose.</p>
+      </div>
+
+      <div class="feature">
+        <div class="ico c">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffc24b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.5 14.6 8l6 .9-4.3 4.2 1 6-5.3-2.8L6.7 19l1-6L3.4 8.9l6-.9z"/>
+          </svg>
+        </div>
+        <h3>Collect the crew</h3>
+        <p>Earn gold as you climb, open packs, and unlock new characters from Common all the way to Mythic.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== SUPPORT ========== -->
+<section id="support" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Support</p>
+      <h2>Stuck on something?</h2>
+    </div>
+    <div class="panel">
+      <p class="big">Questions, bugs, or a problem with a purchase. Write to us and a human will answer.</p>
+      <p><a href="mailto:support.allstarstudios@gmail.com">support.allstarstudios@gmail.com</a></p>
+      <p>If it is about your account, include the <strong>Support ID</strong> shown on the Profile screen in the game. It is the fastest way for us to find you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRIVACY ========== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Privacy</p>
+      <h2>We collect very little</h2>
+    </div>
+    <div class="panel">
+      <p class="big">No signup, and no name attached to your progress.</p>
+      <p>You can play the entire game as an anonymous guest, with a randomly generated account ID. Signing in is optional and exists so your progress survives changing phones.</p>
+      <p><a href="privacy.html">Read the full privacy policy</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ACCOUNT DELETION ========== -->
+<section id="deleting-your-account" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Your data</p>
+      <h2>Deleting your account</h2>
+    </div>
+    <div class="panel warn">
+      <p class="big">In the game, go to <strong>Profile &rsaquo; Delete Account</strong>. It takes effect immediately.</p>
+      <p>Prefer to ask us? Email
+        <a href="mailto:support.allstarstudios@gmail.com?subject=Account%20deletion%20request">support.allstarstudios@gmail.com</a>
+        with the subject <strong>Account deletion request</strong>.</p>
+      <p>If you signed in with Google, send it from that account so we can identify you. If you played as a guest, include the Player ID from the Profile screen. We action requests within 30 days.</p>
+      <p>What gets erased, and what we are required to keep, is set out in the
+        <a href="privacy.html#deletion">privacy policy</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="icon.png" alt="">
+        <div>
+          <div class="n">TowerClimber</div>
+          <div class="s">by All Star Studios</div>
+        </div>
+      </div>
+      <nav class="foot-links">
+        <a href="#get">Get the game</a>
+        <a href="#support">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#deleting-your-account">Delete account</a>
+        <a href="mailto:support.allstarstudios@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 All Star Studios. All rights reserved.</span>
+      <span>Made for people who like falling in water.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  // ---------------------------------------------------------------------
+  // TEMPORARY. Swap these two for the real store URLs at launch and the
+  // codes regenerate on their own. Nothing else on the page changes.
+  // Play:  https://play.google.com/store/apps/details?id=com.allstarstudios.towerclimber
+  // Apple: https://apps.apple.com/app/id<APP_ID>
+  // ---------------------------------------------------------------------
+  var STORE_URLS = {
+    'qr-ios':     'https://allstarstudios.example/towerclimber/ios',
+    'qr-android': 'https://allstarstudios.example/towerclimber/android'
+  };
+
+  (function () {
+    if (typeof QRCode === 'undefined') return; // keeps the "QR code" fallback text
+    Object.keys(STORE_URLS).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.innerHTML = '';
+      new QRCode(el, {
+        text: STORE_URLS[id],
+        width: 152,
+        height: 152,
+        colorDark: '#0a1526',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
