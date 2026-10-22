@@ -1,0 +1,23 @@
+{
+  "status": "draft",
+  "documents": [
+    {
+      "type": "privacy",
+      "version": "1",
+      "publicUrl": "https://towerclimber-game.netlify.app/privacy.html",
+      "archiveUrl": "https://towerclimber-game.netlify.app/legal/privacy-v1.html",
+      "contentUrl": "https://towerclimber-game.netlify.app/legal/privacy-v1.json",
+      "htmlSha256": "353cf58550b3251a389534262e8d84566ec0bd967b60b4d8de2d45703410ad23",
+      "jsonSha256": "fc529eeeb9b822ed7210e10c25de5ae3bf6fac19d995528f4f8f8d718075c328"
+    },
+    {
+      "type": "terms",
+      "version": "1",
+      "publicUrl": "https://towerclimber-game.netlify.app/terms.html",
+      "archiveUrl": "https://towerclimber-game.netlify.app/legal/terms-v1.html",
+      "contentUrl": "https://towerclimber-game.netlify.app/legal/terms-v1.json",
+      "htmlSha256": "695cabebae9d6d62db2caaf52d789483140c89fbcb0e2e4d33c4ec7cde98ba28",
+      "jsonSha256": "14431414feb127940f799f3ff6848f410bc042635392eb40976e274b2ab46ea1"
+    }
+  ]
+}
