@@ -115,7 +115,7 @@
 <div class="wrap head">
   <a class="back" href="index.html">&lsaquo; TowerClimber</a>
   <h1>Privacy Policy</h1>
-  <p class="updated">All Star Studios &middot; Version 1 &middot; Last updated 21 October 2026</p>
+  <p class="updated">All Star Studios &middot; Version 1 &middot; Last updated 7 November 2026</p>
 </div>
 
 <main class="wrap">
@@ -145,13 +145,28 @@
   about you. Alongside it we store the type of account, when it was created, and when it was last used.</p>
   <p>The game never asks you for your name or your email address, and our servers do not store either one.</p>
 
-  <h3>If you sign in with Google</h3>
-  <p>Signing in is optional for gameplay. Linking Google sign-in helps recover synced progress while our services
-  operate. It is required before purchasing or restoring eligible purchases, so purchases can be tied to your
-  account and supported if something goes wrong. Unsynced progress may be lost. Signing into a different existing
-  account switches accounts; it does not automatically merge their progress.</p>
-  <p>We use Google Sign In to obtain a stable identifier for your Google account, and we store that identifier so we
-  can recognise you next time. We do not store your Google email address, your name, or your profile picture.</p>
+  <h3>Automatic sign-in with Game Center and Google Play Games</h3>
+  <p>If your device is signed in to Game Center (iPhone) or Google Play Games (Android), the game signs you in with it
+  automatically, so your progress can be recovered on another device using the same Apple or Google account. If the
+  platform needs your confirmation, its own sign-in screen appears when the game starts. You can decline and keep
+  playing as a guest; the game may ask again the next time you open it.</p>
+  <p>We receive a player identifier from Apple or Google and store it with your account so we can recognise you next
+  time. To confirm it is genuine, your device sends us a signature from Apple, or a one-time code that we redeem with
+  Google and use only to read your player identifier. We do not keep that code or the access it gives us. We do not
+  store your email address, your name, or your gaming profile.</p>
+
+  <h3>If you sign in with Google or Apple</h3>
+  <p>Signing in with Google or Apple is optional for gameplay. It helps recover synced progress while our services
+  operate, including when moving between iPhone and Android. A login that can be recovered on another device, meaning
+  Game Center, Google Play Games, Google or Apple, is required before purchasing or restoring eligible purchases, so
+  purchases can be tied to your account and supported if something goes wrong. Unsynced progress may be lost.</p>
+  <p>One account can have more than one of these logins attached. Signing into a different existing account switches
+  accounts; it does not automatically merge their progress. If you are a guest with no progress and your Game Center
+  or Google Play Games login already has an account, the game moves you to that account automatically.</p>
+  <p>We use Google Sign In or Sign in with Apple to obtain a stable identifier for your account with them, and we store
+  that identifier so we can recognise you next time. We do not store your email address, your name, or your profile
+  picture. For Sign in with Apple we also store a token issued by Apple, used only to revoke the sign-in when you delete
+  your account.</p>
 
   <h3>Your game progress</h3>
   <p>So your progress can follow you across devices, we store your high score and run statistics, your gold and
@@ -236,7 +251,9 @@
       <tr><td>RevenueCat</td><td>Verifies purchases with the app stores</td></tr>
       <tr><td>Google Play and Apple</td><td>Take payment and process the transaction</td></tr>
       <tr><td>Google AdMob</td><td>Serves the ads in the game</td></tr>
-      <tr><td>Google Sign In</td><td>Verifies your identity if you choose to sign in</td></tr>
+      <tr><td>Google Play Games</td><td>Verifies your player identity for automatic sign-in on Android</td></tr>
+      <tr><td>Apple Game Center</td><td>Verifies your player identity for automatic sign-in on iPhone</td></tr>
+      <tr><td>Google Sign In and Sign in with Apple</td><td>Verify your identity if you choose to sign in</td></tr>
     </tbody>
   </table>
   </div>
@@ -266,8 +283,9 @@
   We handle requests within the deadlines required by applicable law.</p>
   <p>When you delete your account we permanently delete it and the game data attached to it, including your gold and
   token balances, the characters you own, your statistics and high score, your daily reward state and your pack
-  history. Linked sign-in associations and stored refresh sessions are removed. Deletion does not remotely erase
-  data on other offline devices.
+  history. Linked sign-in associations and stored refresh sessions are removed, and we ask Apple to revoke Sign in with
+  Apple where you used it. Deletion does not remotely erase data on other offline devices. If your device is still
+  signed in to Game Center or Google Play Games, opening the game again starts a new, empty account.
   The deleted progress cannot be recovered through purchase restoration.</p>
   <p>Deletion removes the account's recorded entitlements, but it does not erase app-store purchase records,
   automatically request a refund or remove applicable restoration and consumer rights.
