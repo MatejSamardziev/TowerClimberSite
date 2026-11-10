@@ -7,8 +7,8 @@
       "publicUrl": "https://towerclimber-game.netlify.app/privacy.html",
       "archiveUrl": "https://towerclimber-game.netlify.app/legal/privacy-v1.html",
       "contentUrl": "https://towerclimber-game.netlify.app/legal/privacy-v1.json",
-      "htmlSha256": "fdb9d1259771cece7c410485000b9a596fa3e4d2e6fc25d15890f9013d0f16a7",
-      "jsonSha256": "fb1daa145a528dad01b09bd06f8b0ffd4333cb0d1a7f238e553781fc8f5a4c58"
+      "htmlSha256": "22b3f26ce73303b75e8df2ceb78685a4b2ffeb8db7a9ef7ba34a6a8d45af84aa",
+      "jsonSha256": "3d605ca469179bd44eae28e9f7ee3000783ae0d1c0152343620dbd99d0fd2dad"
     },
     {
       "type": "terms",
@@ -16,8 +16,8 @@
       "publicUrl": "https://towerclimber-game.netlify.app/terms.html",
       "archiveUrl": "https://towerclimber-game.netlify.app/legal/terms-v1.html",
       "contentUrl": "https://towerclimber-game.netlify.app/legal/terms-v1.json",
-      "htmlSha256": "caf3d7826b4f647ea0858adc35ece206a286c80943b093b2374644409e64548a",
-      "jsonSha256": "5ee5122a803f6df40e86d5228c050aa23437e8ea1dd5c54d2c2f7b6dbefb8a88"
+      "htmlSha256": "f4fcd682c3711cc4703c6ff91ad9f9cac433960e9a49439e65d73c18987d379e",
+      "jsonSha256": "6362ef3c3032b740ab457ffee16abeafc2917fdb5e7c70ddf03bb0d8890f8a79"
     }
   ]
 }
