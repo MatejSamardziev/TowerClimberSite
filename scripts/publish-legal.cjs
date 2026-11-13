@@ -7,7 +7,7 @@ const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
 const frontend = path.resolve(root, '../TowerClimberFE/src/legal');
 const versions = { privacy: '1', terms: '1' };
-const base = 'https://towerclimber-game.netlify.app';
+const base = 'https://flood-climb.netlify.app';
 const args = new Set(process.argv.slice(2));
 for (const arg of args) {
   if (!['--check', '--refresh-unreleased-v1'].includes(arg)) throw Error(`Unknown option: ${arg}`);

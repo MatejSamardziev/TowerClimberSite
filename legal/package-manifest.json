@@ -4,20 +4,20 @@
     {
       "type": "privacy",
       "version": "1",
-      "publicUrl": "https://towerclimber-game.netlify.app/privacy.html",
-      "archiveUrl": "https://towerclimber-game.netlify.app/legal/privacy-v1.html",
-      "contentUrl": "https://towerclimber-game.netlify.app/legal/privacy-v1.json",
+      "publicUrl": "https://flood-climb.netlify.app/privacy.html",
+      "archiveUrl": "https://flood-climb.netlify.app/legal/privacy-v1.html",
+      "contentUrl": "https://flood-climb.netlify.app/legal/privacy-v1.json",
       "htmlSha256": "da4bd696c97a37d645e3b71fc54a963a1a6a175e9ed634b939701d519a4d12c3",
-      "jsonSha256": "3d605ca469179bd44eae28e9f7ee3000783ae0d1c0152343620dbd99d0fd2dad"
+      "jsonSha256": "8e7defec8c7c0319abf87a4c060651be5096d408a20419de2c43c36afb5931cb"
     },
     {
       "type": "terms",
       "version": "1",
-      "publicUrl": "https://towerclimber-game.netlify.app/terms.html",
-      "archiveUrl": "https://towerclimber-game.netlify.app/legal/terms-v1.html",
-      "contentUrl": "https://towerclimber-game.netlify.app/legal/terms-v1.json",
+      "publicUrl": "https://flood-climb.netlify.app/terms.html",
+      "archiveUrl": "https://flood-climb.netlify.app/legal/terms-v1.html",
+      "contentUrl": "https://flood-climb.netlify.app/legal/terms-v1.json",
       "htmlSha256": "dda04ed1cd4fbaafca8359dc78be702c4844affb1c5a40a0dca6a55c6cd8b98e",
-      "jsonSha256": "6362ef3c3032b740ab457ffee16abeafc2917fdb5e7c70ddf03bb0d8890f8a79"
+      "jsonSha256": "9b3c1ab229cb79c9f89ca158c241879578da00ae5ec1761c5786ef34058a4c12"
     }
   ]
 }

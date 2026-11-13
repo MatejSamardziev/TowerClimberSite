@@ -48,7 +48,7 @@ test('packaged v1 text keeps URLs and check mode writes nothing', () => {
   f.run();
   const doc = JSON.parse(f.files.get(archive('privacy-v1.json')));
   assert.equal(doc.version, '1');
-  assert.match(doc.content, /Privacy \(https:\/\/towerclimber-game.netlify.app\/privacy.html\)/);
+  assert.match(doc.content, /Privacy \(https:\/\/flood-climb.netlify.app\/privacy.html\)/);
   const manifest = JSON.parse(f.files.get(archive('package-manifest.json')));
   assert.equal(manifest.status, 'draft');
   assert.equal(manifest.documents[0].jsonSha256,
@@ -124,5 +124,5 @@ test('relative navigation and images work in archives and app links stay absolut
   assert.match(html, /href="\.\.\/index.html"/);
   assert.match(html, /src="\.\.\/background.jpg"/);
   const doc = JSON.parse(f.files.get(archive('terms-v1.json')));
-  assert.match(doc.content, /https:\/\/towerclimber-game.netlify.app\/privacy.html/);
+  assert.match(doc.content, /https:\/\/flood-climb.netlify.app\/privacy.html/);
 });
